@@ -1,4 +1,6 @@
 # Online Camera App
+
+![First photo](https://github.com/AngelLozan/cameraApp/blob/main/camapp.png?raw=true)
 I created this project on my linux machine that I built. I was unable to find a decent camera app where I could check whether the camera worked well with my machine, so I decided to make one. 
 
 ## Available Scripts

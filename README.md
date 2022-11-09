@@ -55,5 +55,5 @@ You don't have to ever use `eject`. The curated feature set is suitable for smal
   
 - Generate local certificates to be able to use getUserMedia() method. [Use mkcert](https://web.dev/how-to-use-local-https/)
   
-- 
+- Currently reconfigured to record video, but photo code is present, and commented out. Need to render two buttons and modify the deletePhoto method if you are to implement photos. 
 

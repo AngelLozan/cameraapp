@@ -31,7 +31,7 @@ function App() {
         try {
             await getVideo();
 
-            mediaRecorder = await new MediaRecorder(stream, { mimeType: 'video/webm' });
+            mediaRecorder = await new MediaRecorder(stream, { mimeType: 'video/mpeg' });
             mediaRecorder.addEventListener('dataavailable', function(e) {
                 console.log('Recorded blob: ', e.data);
                 blobsRecorded.push(e.data);

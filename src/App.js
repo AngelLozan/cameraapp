@@ -31,7 +31,7 @@ function App() {
         try {
             await getVideo();
 
-            mediaRecorder = await new MediaRecorder(stream, { mimeType: 'video/mpeg' });
+            mediaRecorder = await new MediaRecorder(stream, { mimeType: 'video/webm' });
             mediaRecorder.addEventListener('dataavailable', function(e) {
                 console.log('Recorded blob: ', e.data);
                 blobsRecorded.push(e.data);
@@ -39,7 +39,7 @@ function App() {
 
             mediaRecorder.addEventListener('stop', function() {
                 console.log("creating video local");
-                let blob = new Blob(blobsRecorded, { type: 'video/mpeg' });
+                let blob = new Blob(blobsRecorded, { type: 'video/webm' });
                 let videoLocal = URL.createObjectURL(blob);
                 downloadLink = videoLocal;
                 console.log('Download link is: ', downloadLink);

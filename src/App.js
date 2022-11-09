@@ -7,7 +7,7 @@ function App() {
     //const photoRef = useRef(null);
     let blobsRecorded = [];
     let stream = null;
-    let downloadLink="";
+    let downloadLink = "";
     let mediaRecorder;
 
 
@@ -33,18 +33,19 @@ function App() {
 
             mediaRecorder = await new MediaRecorder(stream, { mimeType: 'video/webm' });
             mediaRecorder.addEventListener('dataavailable', function(e) {
+                console.log('Recorded blob: ', e.data);
                 blobsRecorded.push(e.data);
             });
 
             mediaRecorder.addEventListener('stop', function() {
                 console.log("creating video local");
-                let blob = new Blob(blobsRecorded, { type: 'video/webm' });
+                let blob = new Blob(blobsRecorded, { type: 'video/mpeg' });
                 let videoLocal = URL.createObjectURL(blob);
                 downloadLink = videoLocal;
                 console.log('Download link is: ', downloadLink);
             });
 
-            mediaRecorder.start();
+            mediaRecorder.start(1000);
             console.log("Recorder started: ", mediaRecorder.state);
 
         } catch (e) {

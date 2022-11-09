@@ -105,7 +105,7 @@ function App() {
 
      <div className={'result ' + (hasPhoto ? 'hasPhoto' : '')}>
      
-     <a href={downloadLink} download="video.webm">Download Video</a>
+     <a href="downloadLink" download="video.webm">Download Video</a>
 
      <button onClick={deletePhoto}>Anular</button>
      </div>

@@ -31,6 +31,21 @@
 .result.hasPhoto{
   left: 0;
 }
+a {
+  color: white;
+  font-size: 40px;
+  margin: 20px;
+}
+
+a:hover {
+  color: blue;
+  cursor: pointer;
+}
+
+a:visited {
+  color: red;
+  cursor: pointer;
+}
 
 video{
   with: 100%;
@@ -39,8 +54,54 @@ video{
 
 button{
   position: absolute;
+  display: inline;
+  margin: 5px;
   bottom: 20px;
   left: 20px;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0 5px;
+  appearance: none;
+  outline: none;
+  padding: 8px 16px;
+  background-image: linear-gradient(to right, #844fff 50%, #ff4f84);
+  background-position: 0%;
+  background-size: 200%;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 700;
+  transition: 0.4s;
+  cursor: pointer;
+}
+
+button.start{
+  bottom: 120px;
+  left: 20px;
+  margin: 5px;
+position: absolute;
+  display: inline;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0 5px;
+  appearance: none;
+  outline: none;
+  padding: 8px 16px;
+  background-image: linear-gradient(to right, #844fff 50%, #ff4f84);
+  background-position: 0%;
+  background-size: 200%;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 700;
+  transition: 0.4s;
+  cursor: pointer;
+}
+
+button.stop{
+   bottom: 70px;
+  left: 20px;
+  margin: 5px;
+position: absolute;
+  display: inline;
   border: none;
   border-radius: 10px;
   box-shadow: 0 0 5px;

@@ -1,6 +1,9 @@
 # Online Camera App
 
 ![First photo](https://github.com/AngelLozan/cameraApp/blob/main/camapp.png?raw=true)
+
+
+
 I created this project on my linux machine that I built. I was unable to find a decent camera app where I could check whether the camera worked well with my machine, so I decided to make one. 
 
 ## Available Scripts
@@ -14,6 +17,8 @@ Open [https://localhost:3000](https://localhost:3000) to view it in your browser
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
+
+*You will need to enable flags `#allow-insecure-localhost` in your browser to start the app as is. See `package.json` for start script and temp certificates affiliated.*
 
 ### `npm test`
 

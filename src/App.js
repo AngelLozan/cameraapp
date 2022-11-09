@@ -7,7 +7,7 @@ function App() {
     //const photoRef = useRef(null);
     let blobsRecorded = [];
     let stream = null;
-    let downloadLink = "";
+    let downloadLink;
     let mediaRecorder;
 
 
@@ -31,7 +31,7 @@ function App() {
         try {
             await getVideo();
 
-            mediaRecorder = await new MediaRecorder(stream, { mimeType: 'video/webm' });
+            mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
             mediaRecorder.addEventListener('dataavailable', function(e) {
                 console.log('Recorded blob: ', e.data);
                 blobsRecorded.push(e.data);
@@ -105,7 +105,7 @@ function App() {
 
      <div className={'result ' + (hasPhoto ? 'hasPhoto' : '')}>
      
-     <a href={blobsRecorded[0]} download="video.webm">Download Video</a>
+     <a href={downloadLink} download="video.webm">Download Video</a>
 
      <button onClick={deletePhoto}>Anular</button>
      </div>

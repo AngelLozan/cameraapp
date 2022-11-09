@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 
+//let downloadLink = document.querySelector('#download');
 
 function App() {
 
@@ -7,11 +8,11 @@ function App() {
     //const photoRef = useRef(null);
     let blobsRecorded = [];
     let stream = null;
-    let downloadLink = '';
     let mediaRecorder;
 
 
     const [hasPhoto, setHasPhoto] = useState(false);
+    const [link, setLink] = useState('');
 
     const getVideo = async () => {
         try {
@@ -41,7 +42,8 @@ function App() {
                 console.log("creating video local");
                 let blob = new Blob(blobsRecorded, { type: 'video/webm' });
                 let videoLocal = URL.createObjectURL(blob);
-                downloadLink = videoLocal;
+                let downloadLink = videoLocal;
+                setLink(downloadLink);
                 console.log('Download link is: ', downloadLink);
             });
 
@@ -105,7 +107,7 @@ function App() {
 
      <div className={'result ' + (hasPhoto ? 'hasPhoto' : '')}>
      
-     <a href="downloadLink" download="video.webm">Download Video</a>
+     <a href={link} download="video.webm">Download Video</a>
 
      <button onClick={deletePhoto}>Anular</button>
      </div>

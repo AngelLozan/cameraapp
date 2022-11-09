@@ -4,7 +4,7 @@ import React, { useRef, useEffect, useState } from "react";
 function App() {
 
     const videoRef = useRef(null);
-    const photoRef = useRef(null);
+    //const photoRef = useRef(null);
     let blobsRecorded = [];
     let stream = null;
     let downloadLink="";

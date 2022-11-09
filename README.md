@@ -6,6 +6,8 @@
 
 I created this project on my linux machine that I built. I was unable to find a decent camera app where I could check whether the camera worked well with my machine, so I decided to make one. 
 
+[*Successfully deployed on Netlify*](https://quiet-donut-30d093.netlify.app/)
+
 ## Available Scripts
 
 In the project directory, you can run:

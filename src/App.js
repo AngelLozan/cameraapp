@@ -7,7 +7,7 @@ function App() {
     //const photoRef = useRef(null);
     let blobsRecorded = [];
     let stream = null;
-    let downloadLink;
+    let downloadLink = '';
     let mediaRecorder;
 
 

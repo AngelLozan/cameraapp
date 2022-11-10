@@ -14,6 +14,20 @@
 
 .camera{
   position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.recording{
+  display: none;
+}
+
+.visualizer{
+  width: 100%;
+  height: 20%;
+  position: fixed;
+  bottom: 0;
+  background-color: blueviolet;
 }
 
 .result{
@@ -31,6 +45,12 @@
 .result.hasPhoto{
   left: 0;
 }
+
+video {
+  border-radius: 20px;
+}
+
+
 a {
   color: white;
   font-size: 40px;

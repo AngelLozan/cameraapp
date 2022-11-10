@@ -1,18 +1,20 @@
 import React, { useRef, useEffect, useState } from "react";
 
-//let downloadLink = document.querySelector('#download');
 
 function App() {
 
     const videoRef = useRef(null);
     //const photoRef = useRef(null);
+    const audioRef = useRef(null);
     let blobsRecorded = [];
     let stream = null;
     let mediaRecorder;
-
+    let audioCtx;
+    
 
     const [hasPhoto, setHasPhoto] = useState(false);
     const [link, setLink] = useState('');
+    
 
     const getVideo = async () => {
         try {
@@ -31,6 +33,8 @@ function App() {
 
         try {
             await getVideo();
+
+            visualize(stream);
 
             mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
             mediaRecorder.addEventListener('dataavailable', function(e) {
@@ -62,6 +66,7 @@ function App() {
             await setHasPhoto(true);
             console.log("Recorder stopped: ", mediaRecorder.state);
         } catch (e) {
+            alert('Video not started yet 🥲')
             console.log('Error in stop method: ', e);
         }
     }
@@ -82,10 +87,72 @@ function App() {
     //     setHasPhoto(true);
     // }
 
-    const deletePhoto = () => {
-        setHasPhoto(false);
+    const deletePhoto = async () => {
+        await setHasPhoto(false);
         mediaRecorder = null;
     }
+
+function visualize(stream) {
+  if(!audioCtx) {
+    audioCtx = new AudioContext();
+  }
+
+  const source = audioCtx.createMediaStreamSource(stream);
+
+  const analyser = audioCtx.createAnalyser();
+  analyser.fftSize = 2048;
+  const bufferLength = analyser.frequencyBinCount;
+  const dataArray = new Uint8Array(bufferLength);
+
+  source.connect(analyser);
+  //analyser.connect(audioCtx.destination);
+
+  draw()
+
+  function draw() {
+
+    let canvas = audioRef.current;
+
+    const canvasCtx = canvas.getContext("2d");
+
+    const WIDTH = canvas.width
+    const HEIGHT = canvas.height;
+
+    requestAnimationFrame(draw);
+
+    analyser.getByteTimeDomainData(dataArray);
+
+    canvasCtx.fillStyle = 'rgb(200, 200, 200)';
+    canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
+
+    canvasCtx.lineWidth = 2;
+    canvasCtx.strokeStyle = 'rgb(0, 0, 0)';
+
+    canvasCtx.beginPath();
+
+    let sliceWidth = WIDTH * 1.0 / bufferLength;
+    let x = 0;
+
+
+    for(let i = 0; i < bufferLength; i++) {
+
+      let v = dataArray[i] / 128.0;
+      let y = v * HEIGHT/2;
+
+      if(i === 0) {
+        canvasCtx.moveTo(x, y);
+      } else {
+        canvasCtx.lineTo(x, y);
+      }
+
+      x += sliceWidth;
+    }
+
+    canvasCtx.lineTo(canvas.width, canvas.height/2);
+    canvasCtx.stroke();
+
+  }
+}
 
     // <canvas ref={photoRef}></canvas>
     //  <button onClick={deletePhoto}>Anular</button>
@@ -97,14 +164,14 @@ function App() {
 
     return (
         <div className="App">
+
       <div className="camera">
       <video ref={videoRef}></video>
       <button className='start' onClick={captureVideo}>Start</button>
       <button className='stop' onClick={stopVideo}>Stop</button>
-      
-      
      </div>
-
+     <canvas className="visualizer" ref={audioRef} height="60px"></canvas>
+     
      <div className={'result ' + (hasPhoto ? 'hasPhoto' : '')}>
      
      <a href={link} download="video.webm">Download Video</a>

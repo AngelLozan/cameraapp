@@ -20,7 +20,8 @@ function App() {
 
     const getVideo = async () => {
         try {
-            stream = await navigator.mediaDevices.getUserMedia({ video: { width: 640, height: 480 }, audio: true })
+            //stream = await navigator.mediaDevices.getUserMedia({ video: { width: 640, height: 480 }, audio: true })
+            stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
             let video = videoRef.current;
             video.srcObject = stream;
             video.play();

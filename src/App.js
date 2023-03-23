@@ -10,11 +10,13 @@ function App() {
     let stream = null;
     let mediaRecorder;
     let audioCtx;
+   
     
 
     const [hasPhoto, setHasPhoto] = useState(false);
     const [link, setLink] = useState('');
     
+    //const [videoProp, setVideoProp] = useState({photo: false, recordOn: false})
 
     const getVideo = async () => {
         try {
@@ -22,24 +24,25 @@ function App() {
             let video = videoRef.current;
             video.srcObject = stream;
             video.play();
+            visualize(stream);
         } catch (e) {
-
+            alert("Cannot detect your camera for some reason, try switching ports 🤔")
             console.log('Error in getVideo: ', e);
         }
     }
 
     const captureVideo = async () => {
 
+      await getVideo();
 
         try {
-            await getVideo();
-
-            visualize(stream);
-
+            
+            
             mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
             mediaRecorder.addEventListener('dataavailable', function(e) {
                 console.log('Recorded blob: ', e.data);
                 blobsRecorded.push(e.data);
+                
             });
 
             mediaRecorder.addEventListener('stop', function() {
@@ -48,12 +51,15 @@ function App() {
                 let videoLocal = URL.createObjectURL(blob);
                 let downloadLink = videoLocal;
                 setLink(downloadLink);
+                
+
                 console.log('Download link is: ', downloadLink);
             });
 
             mediaRecorder.start(1000);
             console.log("Recorder started: ", mediaRecorder.state);
 
+            
         } catch (e) {
             console.log('Error in start video: ', e);
         }
@@ -61,14 +67,16 @@ function App() {
     }
 
     const stopVideo = async () => {
+
         try {
-            await mediaRecorder.stop();
-            await setHasPhoto(true);
+            
+            mediaRecorder.stop();
+            setHasPhoto(true);
             console.log("Recorder stopped: ", mediaRecorder.state);
         } catch (e) {
             alert('Video not started yet 🥲')
             console.log('Error in stop method: ', e);
-        }
+        } 
     }
 
 
@@ -88,7 +96,7 @@ function App() {
     // }
 
     const deletePhoto = async () => {
-        await setHasPhoto(false);
+        setHasPhoto(false);
         mediaRecorder = null;
     }
 
@@ -158,19 +166,26 @@ function visualize(stream) {
     //  <button onClick={deletePhoto}>Anular</button>
     //<button onClick={takePhoto}>Tire foto</button>
 
+    
     useEffect(() => {
         getVideo();
-    }, [videoRef])
+    }, [videoRef, audioRef])
 
     return (
-        <div className="App">
+    <div className="App">
 
       <div className="camera">
       <video ref={videoRef}></video>
       <button className='start' onClick={captureVideo}>Start</button>
       <button className='stop' onClick={stopVideo}>Stop</button>
-     </div>
+      </div>
+
+      <div style = {{ display: hasPhoto ? 'none' : 'block'}}className="blob"> </div> 
+
+
      <canvas className="visualizer" ref={audioRef} height="60px"></canvas>
+
+     
      
      <div className={'result ' + (hasPhoto ? 'hasPhoto' : '')}>
      
